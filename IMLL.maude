@@ -1,0 +1,42 @@
+
+
+mod IMLL is
+
+    sorts Formula .
+
+    op p : -> Formula . --- Variables
+    ops _->_ _<-_ _*_ : Formula Formula -> Formula .
+
+
+    sort Struct .
+
+    subsort Formula < Struct .
+    op epsilon : -> Struct .
+    op _,_ : Struct Struct -> Struct [ctor assoc comm id: epsilon] .
+
+
+    sort Sequent .
+    op _=>_ : Struct Formula -> Sequent .
+
+
+    sorts Assumptions .
+
+    subsort Sequent < Assumptions .
+    op True : -> Assumptions .
+    op _|_ : Assumptions Assumptions -> Assumptions [ctor assoc comm id: True] .
+
+    vars Gamma Gamma1 Gamma2 Delta : Struct .
+    vars A B C : Formula .
+
+    rl (p => p) => True .
+
+    rl (Gamma => A -> B) => (A,Gamma => B) .
+    rl (Gamma1, Delta, (A -> B), Gamma2 => C) => (Delta => A) | (Gamma1, B, Gamma2 => C) .
+
+    rl (Gamma => B <- A) => (Gamma,A => B) .
+    rl (Gamma1, (B <- A), Delta, Gamma2 => C) => (Delta => A) | (Gamma1, B, Gamma2 => C) .
+
+    rl (Gamma, Delta => A * B) => (Gamma => A) | (Delta => B) .
+    rl (Gamma1,(A * B),Gamma2 => C) => (Gamma1,A,B,Gamma2 => C) .
+
+endm

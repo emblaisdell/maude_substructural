@@ -1,0 +1,42 @@
+
+
+mod IPL is
+
+    sorts Formula .
+
+    op p : -> Formula . --- Variables
+    ops _->_ _<-_ _*_ : Formula Formula -> Formula .
+
+
+    sort Struct .
+
+    subsort Formula < Struct .
+    op epsilon : -> Struct .
+    op _,_ : Struct Struct -> Struct [ctor assoc comm id: epsilon] .
+
+
+    sort Sequent .
+    op _=>_ : Struct Formula -> Sequent .
+
+
+    sorts Assumptions .
+
+    subsort Sequent < Assumptions .
+    op True : -> Assumptions .
+    op _|_ : Assumptions Assumptions -> Assumptions [ctor assoc comm id: True] .
+
+    vars Gamma Gamma1 Gamma2 Delta : Struct .
+    vars A B C : Formula .
+
+    rl (Gamma, p => p) => True .
+
+    rl (Gamma => A -> B) => (A,Gamma => B) .
+    rl (Gamma, (A -> B) => C) => (Gamma, (A -> B) => A) | (Gamma, B => C) .
+
+    rl (Gamma => B <- A) => (A,Gamma => B) .
+    rl (Gamma, (B <- A) => C) => (Gamma, (B <- A) => A) | (Gamma, B => C) .
+
+    rl (Gamma => A * B) => (Gamma => A) | (Gamma => B) .
+    rl (Gamma,(A * B) => C) => (Gamma,A,B => C) .
+
+endm
