@@ -1,6 +1,6 @@
 
 
-mod IMLL is
+mod IAMLL is
 
     sorts Formula .
 

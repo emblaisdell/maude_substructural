@@ -30,6 +30,7 @@ class Formula:
         if self.conn == "VAR":
             return "p"
         return f"({self.args[0]} {self.conn} {self.args[1]})"
+    
 
 CONNS = ["->","<-","*"]
 

@@ -1,6 +1,6 @@
 
 
-mod LC is
+mod LCS is
 
     sorts Formula .
 
@@ -30,10 +30,10 @@ mod LC is
 
     rl (p => p) => True .
 
-    rl (Gamma,C => A -> B) => (A,Gamma,C => B) .
+    rl (Gamma => A -> B) => (A,Gamma => B) .
     rl (Gamma1, Delta, (A -> B), Gamma2 => C) => (Delta => A) | (Gamma1, B, Gamma2 => C) .
 
-    rl (Gamma,C => B <- A) => (Gamma,C,A => B) .
+    rl (Gamma => B <- A) => (Gamma,A => B) .
     rl (Gamma1, (B <- A), Delta, Gamma2 => C) => (Delta => A) | (Gamma1, B, Gamma2 => C) .
 
     rl (Gamma, Delta => A * B) => (Gamma => A) | (Delta => B) .

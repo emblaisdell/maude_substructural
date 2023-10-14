@@ -1,0 +1,47 @@
+
+
+mod NL is
+
+    sorts Formula .
+
+    op p : -> Formula . --- Variables
+    ops _->_ _<-_ _*_ : Formula Formula -> Formula .
+
+
+    sort MbStruct Struct .
+
+    vars Gammal Gammar : MbStruct .
+    vars Gamma Delta : Struct .
+
+    subsort Formula < Struct .
+    subsort Struct < MbStruct .
+    ops l r : -> MbStruct .
+    op epsilon : -> MbStruct .
+    op _,_ : MbStruct MbStruct -> MbStruct [ctor assoc id: epsilon] .
+    mb l,Gamma,Delta,r : Struct .
+
+
+    sort Sequent .
+    op _=>_ : Struct Formula -> Sequent .
+
+
+    sorts Assumptions .
+
+    subsort Sequent < Assumptions .
+    op True : -> Assumptions .
+    op _|_ : Assumptions Assumptions -> Assumptions [ctor assoc comm id: True] .
+
+    vars A B C : Formula .
+
+    rl (p => p) => True .
+
+    rl (Gamma => A -> B) => (l,A,Gamma,r => B) .
+    rl (Gammal, l, Delta, (A -> B), r, Gammar => C) => (Delta => A) | (Gammal, B, Gammar => C) .
+
+    rl (Gamma => B <- A) => (l,Gamma,A,r => B) .
+    rl (Gammal, l, (B <- A), Delta, r, Gammar => C) => (Delta => A) | (Gammal, B, Gammar => C) .
+
+    rl (Gamma, Delta => A * B) => (Gamma => A) | (Delta => B) .
+    rl (Gammal,(A * B),Gammar => C) => (Gammal,l,A,B,r,Gammar => C) .
+
+endm
